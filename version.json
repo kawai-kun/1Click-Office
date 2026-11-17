@@ -1,0 +1,10 @@
+{
+  "version": "2026.11.17",
+  "notes_ascii": "1Click Office 3.0 Enterprise: Hoan thien danh so trang bat ky, sua toan bo icon tren Word va Excel, cap nhat giao dien tieng Viet co dau 100%, ban quyen vinh vien, may chu cap nhat tu dong GitHub.",
+  "word_url": "https://raw.githubusercontent.com/kawai-kun/1Click-Office/main/1Click.dotm",
+  "word_sha256": "a4be8cfdc44391fc159d26730bf1c560f5fe467d7ee2050dc17dc0fb00e5032e",
+  "word_size": 364814,
+  "excel_url": "https://raw.githubusercontent.com/kawai-kun/1Click-Office/main/1Click_Excel.xlam",
+  "excel_sha256": "afcc5ed33caf4db97ff45c494d806716ed3000e6d37990ea5793b83bc8924f8d",
+  "excel_size": 101776
+}

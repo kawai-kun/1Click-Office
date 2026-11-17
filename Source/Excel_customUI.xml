@@ -1,0 +1,85 @@
+<customUI xmlns="http://schemas.microsoft.com/office/2006/01/customui" onLoad="RibbonOnLoad">
+  <ribbon>
+    <tabs>
+      <tab idMso="TabHome">
+        <group id="grpChuanHoaExcelHome" label="1CLICK EXCEL" insertAfterMso="GroupClipboard">
+          <button id="btnChuanHoaExcelHome"
+                  label="Chuẩn Hóa Trang In"
+                  size="large"
+                  imageMso="PrintAreaMenu"
+                  screentip="Chuẩn hóa trang in A4 và căn chỉnh bảng biểu"
+                  supertip="Tự động Fit vừa trang A4 dọc hoặc ngang, chống che mất chữ (cả ô đơn và ô gộp), lặp dòng tiêu đề ở các trang sau."
+                  onAction="RibbonChuanHoaExcel" />
+          <button id="btnHoanTacExcelHome" label="Hoàn tác" imageMso="Undo" screentip="Hoàn tác lần chuẩn hóa gần nhất" onAction="RibbonHoanTacExcel" />
+          <button id="btnVietHoaHome" label="Viết hoa đầu từ" imageMso="Bold" screentip="Viết hoa chữ cái đầu: Nguyễn Văn A" onAction="Xl_VietHoaDauTu" />
+          <button id="btnDocSoHome" label="Đọc số ra chữ" imageMso="AccountingFormat" screentip="Đọc số thành chữ tiếng Việt vào ô bên cạnh" onAction="Xl_DocSoRaChu" />
+          <button id="btnTacGiaHome" label="Tác giả" imageMso="AddressBook" screentip="Thông tin tác giả &amp; Bản quyền" onAction="RibbonThongTinTacGia" />
+        </group>
+      </tab>
+      <tab id="tabChuanHoaExcel" label="CHUẨN HÓA IN">
+        <group id="grpChuanHoaExcel" label="Bảng Biểu &amp; Trang In">
+          <button id="btnChuanHoaExcelTab"
+                  label="Chuẩn Hóa Trang In"
+                  size="large"
+                  imageMso="PrintAreaMenu"
+                  screentip="Chuẩn hóa trang in A4 và căn chỉnh bảng biểu"
+                  supertip="Tự động Fit vừa trang A4 dọc hoặc ngang, chống che mất chữ (cả ô đơn và ô gộp), lặp dòng tiêu đề ở các trang sau."
+                  onAction="RibbonChuanHoaExcel" />
+          <button id="btnHoanTacExcelTab" label="Hoàn tác" imageMso="Undo" screentip="Hoàn tác lần chuẩn hóa gần nhất" onAction="RibbonHoanTacExcel" />
+          <button id="btnCanGiuaTrangTab" label="Căn giữa trang" imageMso="AlignCenter" screentip="Căn giữa trang in theo chiều ngang" onAction="Xl_CanGiuaTrang" />
+          <button id="btnDongBangTab" label="Cố định dòng (Freeze)" imageMso="FreezePanes" screentip="Cố định / Bỏ cố định dòng tiêu đề bảng tính" onAction="Xl_DongBangTieuDe" />
+          <button id="btnXemTruocTab" label="Xem trước bản in" imageMso="PrintPreviewAndPrint" screentip="Xem trước bản in (Print Preview)" onAction="Xl_XemTruocBanIn" />
+        </group>
+        <group id="grpXuLyVanBan" label="Xử Lý Văn Bản &amp; Họ Tên">
+          <button id="btnVietHoaDauTuTab"
+                  label="Viết Hoa Đầu Từ"
+                  size="large"
+                  imageMso="Bold"
+                  screentip="Chuyển họ và tên thành dạng Viết Hoa Đầu Từ"
+                  supertip="Chuyển đổi vùng chọn sang dạng viết hoa chữ cái đầu: Nguyễn Văn A (hỗ trợ Unicode tiếng Việt đầy đủ)."
+                  onAction="Xl_VietHoaDauTu" />
+          <button id="btnVietHoaToanBoTab" label="CHỮ IN HOA" imageMso="FontSizeIncrease" screentip="Chuyển toàn bộ thành chữ in hoa" onAction="Xl_VietHoaToanBo" />
+          <button id="btnChuThuongTab" label="chữ thường" imageMso="FontSizeDecrease" screentip="Chuyển toàn bộ thành chữ thường" onAction="Xl_ChuThuong" />
+          <button id="btnXoaKhoangTrangTab" label="Xóa khoảng trắng" imageMso="Clear" screentip="Xóa khoảng trắng thừa và ký tự rác" onAction="Xl_XoaKhoangTrang" />
+          <button id="btnTachHoTenTab" label="Tách Cột Họ &amp; Tên" imageMso="SplitCells" screentip="Tách cột Họ và Tên riêng biệt để sắp xếp A-Z" onAction="Xl_TachHoVaTen" />
+        </group>
+        <group id="grpTienIchBang" label="Tiện Ích Số &amp; Bảng Tính">
+          <button id="btnDocSoTab"
+                  label="Đọc Số Ra Chữ"
+                  size="large"
+                  imageMso="AccountingFormat"
+                  screentip="Đọc số tiền thành chữ tiếng Việt"
+                  supertip="Đọc số tiền ô đang chọn thành chữ vào ô liền kề. Đồng thời hỗ trợ dùng hàm =DocSo(ô) trực tiếp trong công thức Excel."
+                  onAction="Xl_DocSoRaChu" />
+          <button id="btnDinhDangTienTab" label="Định dạng tiền (VNĐ)" imageMso="AccountingFormat" screentip="Định dạng số phân cách hàng nghìn (1,000,000)" onAction="Xl_DinhDangTienVND" />
+          <button id="btnTuTinhThanhTienTab" label="Tính Thành Tiền" imageMso="FunctionWizard" screentip="Tự động tính công thức = SL * Đơn giá" onAction="Xl_TuTinhThanhTien" />
+          <button id="btnDanhSTTTab" label="Đánh lại STT (1,2,3)" imageMso="AutoSum" screentip="Đánh lại số thứ tự tự động 1, 2, 3..." onAction="Xl_DanhLaiSTT" />
+          <button id="btnDanhLaMaTab" label="STT La Mã (I,II,III)" imageMso="Numbering" screentip="Đánh số thứ tự La Mã I, II, III... cho đề mục dự toán" onAction="Xl_DanhSTT_LaMa" />
+          <button id="btnKeKhungTab" label="Kẻ viền chuẩn" imageMso="BordersAll" screentip="Kẻ viền bảng biểu chuẩn văn bản hành chính" onAction="Xl_KeKhungChuan" />
+          <button id="btnXoaDongTrongTab" label="Xóa dòng trống" imageMso="SheetRowsDelete" screentip="Xóa các dòng hoàn toàn trống trong bảng" onAction="Xl_XoaDongTrong" />
+          <button id="btnXoaDinhDangTab" label="Xóa định dạng rác" imageMso="ClearFormatting" screentip="Xóa màu nền, font lỗi nhưng giữ nguyên số liệu" onAction="Xl_XoaDinhDangRac" />
+        </group>
+        <group id="grpTacGiaExcel" label="Tác Giả &amp; Hỗ Trợ">
+          <button id="btnThongTinTacGiaExcel"
+                  label="Tác Giả"
+                  size="large"
+                  imageMso="AddressBook"
+                  screentip="Thông tin tác giả &amp; Bản quyền"
+                  supertip="1Click Office 3.0 Enterprise&#10;Tác giả: Trần Quốc Được&#10;Đơn vị: Trung tâm Dịch vụ Tổng hợp Phường Tân Khai&#10;Bản quyền: Vĩnh viễn (Đã kích hoạt)."
+                  onAction="RibbonThongTinTacGia" />
+          <button id="btnKiemTraCapNhatExcel"
+                  label="Kiểm tra cập nhật"
+                  imageMso="Refresh"
+                  screentip="Kiểm tra phiên bản mới từ máy chủ GitHub"
+                  supertip="Tự động kiểm tra phiên bản mới từ GitHub và cập nhật nếu có."
+                  onAction="RibbonKiemTraCapNhat" />
+          <button id="btnHuongDanExcel"
+                  label="Hướng dẫn sử dụng"
+                  imageMso="Help"
+                  screentip="Xem tài liệu hướng dẫn sử dụng 1Click Office"
+                  onAction="RibbonHuongDanSuDung" />
+        </group>
+      </tab>
+    </tabs>
+  </ribbon>
+</customUI>

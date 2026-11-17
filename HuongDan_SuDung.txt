@@ -1,0 +1,95 @@
+﻿=====================================================================
+          BỘ TIỆN ÍCH 1CLICK OFFICE 3.0 ENTERPRISE (WORD & EXCEL)
+                  CHUYÊN DÙNG CHO CÔNG TÁC HÀNH CHÍNH
+  Tác giả: Trần Quốc Được - ĐT/Zalo: 0984.724.131 - Trung tâm Dịch vụ Tổng hợp Phường Tân Khai
+=====================================================================
+
+1. GIỚI THIỆU:
+Bộ Add-in 1Click Office được thiết kế tối ưu hóa 100% cho cán bộ, công chức,
+viên chức nhà nước và nhân viên văn phòng, giúp giải quyết toàn bộ các khâu
+trình bày thể thức văn bản trong Word và xử lý danh sách, bảng biểu trong Excel.
+
+- Bản quyền: VĨNH VIỄN (Đã kích hoạt sẵn, không cần nhập key, dùng tự do mọi máy).
+- Hoạt động: Hoàn toàn OFFLINE 100%, tốc độ xử lý tức thì, bảo mật tuyệt đối.
+
+---------------------------------------------------------------------
+2. TÍNH NĂNG TRONG MICROSOFT WORD (Thẻ "THỂ THỨC VĂN BẢN"):
+---------------------------------------------------------------------
+- Chuẩn hóa thể thức:
+  + Tự động căn chỉnh toàn bộ văn bản chuẩn theo Nghị định 30/2020/NĐ-CP
+    và Quy định của Đảng, Mặt trận, Đoàn thể, Công an, Quân đội.
+  + Quốc hiệu, Tiêu ngữ, Tên cơ quan ban hành, Số & Ký hiệu, Địa danh ngày tháng.
+  + Tên loại văn bản, Trích yếu nội dung, Phần căn cứ, Nội dung điều khoản.
+  + Phần ký tên, chức vụ, Nơi nhận văn bản chuẩn tỷ lệ ô và khoảng cách.
+- Đánh số trang:
+  + Đánh số trang chuẩn Nghị định 30 (ở giữa lề trên từ trang thứ 2, ẩn trang 1).
+  + Đánh số từ trang bất kỳ (chọn trang bắt đầu và số thứ tự hiển thị tùy ý).
+  + Xóa toàn bộ số trang trong tài liệu chỉ bằng 1 cú nhấp chuột.
+- Tiện ích trang & bảng biểu:
+  + Xoay ngang trang chọn để chứa bảng biểu rộng.
+  + Lặp tiêu đề bảng biểu qua các trang in.
+  + Xóa trang trắng thừa cuối tài liệu, chuẩn hóa dấu câu tiếng Việt.
+- Tạo văn bản mẫu:
+  + Đầy đủ các mẫu văn bản hành chính: Tờ trình, Báo cáo, Kế hoạch, Quyết định,
+    Thông báo, Công văn, Giấy mời, Biên bản...
+- Quản lý thông tin đơn vị:
+  + Đặt trước hồ sơ đơn vị: UBND Phường Tân Khai, TTDVTH...
+  + Thêm, sửa, xóa danh sách đơn vị ban hành linh hoạt.
+
+---------------------------------------------------------------------
+3. TÍNH NĂNG TRONG MICROSOFT EXCEL (Thẻ "CHUẨN HÓA IN"):
+---------------------------------------------------------------------
+A. Nhóm "Bảng Biểu & Trang In":
+   - Chuẩn Hóa Trang In: Tự động căn chỉnh vừa vặn trang giấy A4 (dọc/ngang),
+     tự động căn chỉnh dòng cột không bị tràn hay che khuất chữ kể cả các ô gộp,
+     tự động lặp lại dòng tiêu đề ở các trang in sau.
+   - Căn giữa trang: Căn bảng tính vào chính giữa trang giấy in theo chiều ngang.
+   - Cố định dòng (Freeze): Giữ cố định dòng tiêu đề khi cuộn bảng tính.
+   - Hoàn tác: Khôi phục lại trạng thái bảng tính trước khi chuẩn hóa.
+
+B. Nhóm "Xử Lý Văn Bản & Họ Tên":
+   - Viết Hoa Đầu Từ: Chuyển tên riêng thành dạng chuẩn (VD: trương đắc thảo -> Trương Đắc Thảo).
+   - CHỮ IN HOA: Chuyển toàn bộ vùng chọn thành chữ in hoa.
+   - chữ thường: Chuyển toàn bộ vùng chọn thành chữ thường.
+   - Xóa khoảng trắng: Xóa sạch khoảng trắng thừa và ký tự rác.
+   - Tách Cột Họ & Tên: Tự động chèn 2 cột mới và tách riêng [Họ và đệm] và [Tên] 
+     để phục vụ sắp xếp danh sách theo thứ tự A-Z chính xác tuyệt đối.
+
+C. Nhóm "Tiện Ích Số & Bảng Tính":
+   - Đọc Số Ra Chữ:
+     + Cách 1 (Nút bấm trên Ribbon): Chọn ô có số tiền, bấm "Đọc Số Ra Chữ", 
+       chữ tiếng Việt sẽ tự động điền vào ô kế tiếp.
+     + Cách 2 (Hàm trực tiếp trong ô): Gõ công thức =DocSo(ô_chứa_tiền) 
+       Ví dụ: =DocSo(C5) -> "Năm triệu đồng chẵn."
+   - Định dạng tiền (VNĐ): Định dạng nhanh phân cách hàng nghìn (1.000.000).
+   - Tính Thành Tiền: Tự động áp dụng công thức = Số lượng * Đơn giá.
+   - Đánh lại STT: Tự động điền số thứ tự 1, 2, 3... cho các dòng được chọn.
+   - STT La Mã: Đánh số thứ tự I, II, III... cho đề mục dự toán.
+   - Kẻ viền chuẩn: Kẻ đường viền thanh mảnh chuẩn bảng biểu văn bản hành chính.
+   - Xóa dòng trống: Tự động lọc và xóa sạch các dòng hoàn toàn trống.
+
+---------------------------------------------------------------------
+4. HƯỚNG DẪN CÀI ĐẶT TRÊN CÁC MÁY TÍNH KHÁC:
+---------------------------------------------------------------------
+- Cách 1 (Khuyên dùng): Chạy file cài đặt tự động "1Click_Setup.exe", 
+  bấm Next -> Install. Bộ cài sẽ tự động thiết lập cho cả Word và Excel.
+- Cách 2: Nhấp đúp vào file "CaiDat.bat" để cài đặt nhanh bằng script.
+- Bản quyền: Bản cài đặt đã được TÍCH HỢP BẢN QUYỀN VĨNH VIỄN. Khi cài đặt trên
+  bất kỳ máy tính nào khác, phần mềm tự động nhận diện bản quyền đầy đủ ngay,
+  không yêu cầu nhập mã kích hoạt, không khóa tính năng và không giới hạn thời gian.
+- Gỡ cài đặt: Nhấp đúp vào "GoCaiDat.bat" hoặc gỡ từ Windows Settings / Control Panel.
+
+---------------------------------------------------------------------
+5. CƠ CHẾ CẬP NHẬT TỰ ĐỘNG QUA GITHUB (AUTO-UPDATE):
+---------------------------------------------------------------------
+- Nút "Kiểm tra cập nhật" trên thanh Ribbon Word và Excel được kết nối trực tiếp
+  đến kho lưu trữ GitHub của tác giả:
+  https://github.com/duoc-tankhai/1Click-Office
+- Khi có bản nâng cấp mới được đẩy lên GitHub, chỉ cần bấm "Kiểm tra cập nhật",
+  phần mềm sẽ tự động tải file mới và nâng cấp trong vòng vài giây.
+
+=====================================================================
+Tác giả: Trần Quốc Được
+Đơn vị: Trung tâm Dịch vụ Tổng hợp Phường Tân Khai
+Điện thoại / Zalo hỗ trợ: 0984.724.131
+=====================================================================
