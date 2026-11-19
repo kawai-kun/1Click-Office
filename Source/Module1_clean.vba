@@ -9404,85 +9404,208 @@ Else
 IsBodyStart = False
 End If
 End Function
-Private Function LicApiUrl() As String
-LicApiUrl = "https://script.google.com/macros/s/AKfycbxSZyf-7FeVZ6xbhBwuT5aVVGJDdqP8AJCYek_Wp3Ila5yWLGnmq_rIua3kL1dFsvzOug/exec"
+' ========================================================
+' 1CLICK OFFICE 3.0 ENTERPRISE - HE THONG BAN QUYEN THEO MA MAY
+' TAC GIA: TRAN QUOC DUOC - 0984.724.131
+' ========================================================
+Private Const LIC_SECRET_SALT As String = "TranQuocDuoc@TanKhai#0984724131!Enterprise2026"
+Private Const LIC_MASTER_KEY As String = "TK-MASTER-DUOC-0984724131"
+Private Const LIC_APP As String = "OfficePartySuite"
+Private Const LIC_SECTION As String = "License"
+
+Public Function Lic_IsAuthorMachine() As Boolean
+    On Error Resume Next
+    Dim cName As String, uName As String
+    cName = UCase$(Trim$(Environ$("COMPUTERNAME")))
+    uName = UCase$(Trim$(Environ$("USERNAME")))
+    If cName = "DESKTOP-DPM9KCA" Or uName = "SESSA" Then
+        Lic_IsAuthorMachine = True
+        Exit Function
+    End If
+    Dim authorMarker As String
+    authorMarker = Environ$("APPDATA") & "\OfficePartySuite\author.lic"
+    If Dir$(authorMarker) <> "" Then
+        Lic_IsAuthorMachine = True
+        Exit Function
+    End If
+    Lic_IsAuthorMachine = False
 End Function
-Private Function CheckLicenseActivation() As Boolean
-    CheckLicenseActivation = True
+
+Private Function Lic_ComputeHash(ByVal sInput As String) As String
+    Dim i As Long, c As Double, h1 As Double, h2 As Double, h3 As Double, h4 As Double
+    h1 = 5381#: h2 = 7919#: h3 = 19937#: h4 = 31337#
+    For i = 1 To Len(sInput)
+        c = CDbl(Asc(Mid$(sInput, i, 1)))
+        h1 = (h1 * 31# + c) - Fix((h1 * 31# + c) / 1000000007#) * 1000000007#
+        h2 = (h2 * 37# + c * 3#) - Fix((h2 * 37# + c * 3#) / 1000000009#) * 1000000009#
+        h3 = (h3 * 41# + c * 7#) - Fix((h3 * 41# + c * 7#) / 1000000021#) * 1000000021#
+        h4 = (h4 * 43# + c * 11#) - Fix((h4 * 43# + c * 11#) / 1000000033#) * 1000000033#
+    Next i
+    Dim s1 As String, s2 As String, s3 As String, s4 As String
+    s1 = Right$("0000" & Hex(CLng(h1 - Fix(h1 / 65536#) * 65536#)), 4)
+    s2 = Right$("0000" & Hex(CLng(h2 - Fix(h2 / 65536#) * 65536#)), 4)
+    s3 = Right$("0000" & Hex(CLng(h3 - Fix(h3 / 65536#) * 65536#)), 4)
+    s4 = Right$("0000" & Hex(CLng(h4 - Fix(h4 / 65536#) * 65536#)), 4)
+    Lic_ComputeHash = s1 & "-" & s2 & "-" & s3 & "-" & s4
 End Function
-Private Function CallHttpApi(ByVal url As String) As String
-Dim res As String
-res = ""
-#If Mac Then
-On Error Resume Next
-Dim sc As String
-sc = "do shell script ""curl -s -L --max-time 3 '" & url & "'"""
-res = MacScript(sc)
-On Error GoTo 0
-#Else
-On Error Resume Next
-Dim http As Object
-Set http = CreateObject("WinHttp.WinHttpRequest.5.1")
-If http Is Nothing Then
-Set http = CreateObject("MSXML2.ServerXMLHTTP.6.0")
-End If
-http.Open "GET", url, False
-http.setRequestHeader "User-Agent", "Mozilla/5.0"
-http.setTimeouts 2000, 3000, 3000, 3000
-http.Send
-If Err.Number = 0 Then
-res = http.responseText
-End If
-On Error GoTo 0
-#End If
-CallHttpApi = Trim(res)
+
+Public Function Lic_GetRawHardwareID() As String
+    Dim sDrive As String, sComp As String, sUuid As String
+    On Error Resume Next
+    sComp = UCase$(Trim$(Environ$("COMPUTERNAME")))
+    
+    Dim fso As Object
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    sDrive = Hex(Abs(fso.GetDrive("C:").SerialNumber))
+    Set fso = Nothing
+    
+    Dim wmi As Object, items As Object, itm As Object
+    Set wmi = GetObject("winmgmts:\\.\root\cimv2")
+    Set items = wmi.ExecQuery("SELECT UUID FROM Win32_ComputerSystemProduct")
+    For Each itm In items
+        sUuid = itm.UUID
+        Exit For
+    Next
+    Set items = Nothing
+    Set wmi = Nothing
+    On Error GoTo 0
+    
+    If Len(sUuid) = 0 Or sUuid = "None" Then
+        Lic_GetRawHardwareID = sComp & "|" & sDrive
+    Else
+        Lic_GetRawHardwareID = sUuid & "|" & sDrive & "|" & sComp
+    End If
 End Function
-Private Function GetMachineName() As String
-Dim mName As String
-#If Mac Then
-On Error Resume Next
-mName = MacScript("do shell script ""scutil --get ComputerName || hostname -s || whoami""")
-mName = Trim(Replace(mName, vbCrLf, ""))
-mName = Trim(Replace(mName, vbLf, ""))
-If Len(mName) = 0 Then mName = Environ("USER")
-On Error GoTo 0
-#Else
-mName = Environ("COMPUTERNAME")
-If Len(mName) = 0 Then mName = Environ("USERNAME")
-#End If
-If Len(mName) = 0 Then mName = "UNKNOWN_PC"
-GetMachineName = mName
+
+Public Function Lic_GetMachineID() As String
+    Lic_GetMachineID = "1C-" & Lic_ComputeHash("HW#" & Lic_GetRawHardwareID())
 End Function
-Private Function ParseJsonField(ByVal json As String, ByVal fieldName As String) As String
-Dim pos As Long, startPos As Long, endPos As Long
-pos = InStr(json, """" & fieldName & """")
-If pos > 0 Then
-startPos = InStr(pos + Len(fieldName) + 2, json, """")
-If startPos > 0 Then
-endPos = InStr(startPos + 1, json, """")
-If endPos > startPos Then
-ParseJsonField = Mid(json, startPos + 1, endPos - startPos - 1)
-End If
-End If
-End If
+
+Public Function Lic_GenerateKey(ByVal machId As String) As String
+    Lic_GenerateKey = "TK-" & Lic_ComputeHash(UCase$(Trim$(machId)) & "#" & LIC_SECRET_SALT)
 End Function
-Private Function EncodeUrl(ByVal s As String) As String
-Dim i As Long, ch As String, code As Long
-Dim res As String
-res = ""
-For i = 1 To Len(s)
-ch = Mid(s, i, 1)
-code = AscW(ch) And &HFFFF&
-If (code >= 48 And code <= 57) Or (code >= 65 And code <= 90) Or (code >= 97 And code <= 122) Or ch = "-" Or ch = "_" Or ch = "." Then
-res = res & ch
-ElseIf code < 128 Then
-res = res & "%" & Right("0" & Hex(code), 2)
-Else
-res = res & "_"
-End If
-Next i
-EncodeUrl = res
+
+Private Function Lic_GetSavedKey() As String
+    Dim k As String
+    On Error Resume Next
+    k = GetSetting(LIC_APP, LIC_SECTION, "ActiveKey", "")
+    If Len(k) = 0 Then
+        Dim datPath As String, num As Integer
+        datPath = Environ$("APPDATA") & "\OfficePartySuite\license.dat"
+        If Dir$(datPath) <> "" Then
+            num = FreeFile
+            Open datPath For Input As #num
+            Line Input #num, k
+            Close #num
+        End If
+    End If
+    On Error GoTo 0
+    Lic_GetSavedKey = UCase$(Trim$(k))
 End Function
+
+Public Sub Lic_SaveKey(ByVal sKey As String)
+    On Error Resume Next
+    sKey = UCase$(Trim$(sKey))
+    SaveSetting LIC_APP, LIC_SECTION, "ActiveKey", sKey
+    SaveSetting LIC_APP, LIC_SECTION, "MachineID", Lic_GetMachineID()
+    
+    Dim dirApp As String, datPath As String, num As Integer
+    dirApp = Environ$("APPDATA") & "\OfficePartySuite"
+    If Dir$(dirApp, vbDirectory) = "" Then MkDir dirApp
+    datPath = dirApp & "\license.dat"
+    num = FreeFile
+    Open datPath For Output As #num
+    Print #num, sKey
+    Close #num
+    On Error GoTo 0
+End Sub
+
+Public Function Lic_IsActivated() As Boolean
+    If Lic_IsAuthorMachine() Then
+        Lic_IsActivated = True
+        Exit Function
+    End If
+    
+    Dim k As String, mId As String, validK As String
+    k = Lic_GetSavedKey()
+    If Len(k) = 0 Then
+        Lic_IsActivated = False
+        Exit Function
+    End If
+    
+    If k = LIC_MASTER_KEY Then
+        Lic_IsActivated = True
+        Exit Function
+    End If
+    
+    mId = Lic_GetMachineID()
+    validK = Lic_GenerateKey(mId)
+    If k = validK Then
+        Lic_IsActivated = True
+    Else
+        Lic_IsActivated = False
+    End If
+End Function
+
+Public Function CheckLicenseActivation() As Boolean
+    If Lic_IsActivated() Then
+        CheckLicenseActivation = True
+        Exit Function
+    End If
+    
+    Dim mId As String
+    mId = Lic_GetMachineID()
+    
+    ' Copy to clipboard
+    On Error Resume Next
+    Dim wsh As Object
+    Set wsh = CreateObject("WScript.Shell")
+    wsh.Run "cmd.exe /c (echo " & mId & ")|clip", 0, True
+    Set wsh = Nothing
+    On Error GoTo 0
+    
+    Dim msg As String, title As String
+    title = ChrW(49) & ChrW(67) & ChrW(108) & ChrW(105) & ChrW(99) & ChrW(107) & ChrW(32) & ChrW(79) & ChrW(102) & ChrW(102) & ChrW(105) & ChrW(99) & ChrW(101) & ChrW(32) & ChrW(45) & ChrW(32) & ChrW(75) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7841) & ChrW(116) & ChrW(32) & ChrW(98) & ChrW(7843) & ChrW(110) & ChrW(32) & ChrW(113) & ChrW(117) & ChrW(121) & ChrW(7873) & ChrW(110)
+    
+    msg = ChrW(80) & ChrW(104) & ChrW(7847) & ChrW(109) & ChrW(32) & ChrW(109) & ChrW(7873) & ChrW(109) & ChrW(32) & ChrW(99) & ChrW(104) & ChrW(434) & ChrW(97) & ChrW(32) & ChrW(273) & ChrW(434) & ChrW(7907) & ChrW(99) & ChrW(32) & ChrW(107) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7841) & ChrW(116) & ChrW(32) & ChrW(98) & ChrW(7843) & ChrW(110) & ChrW(32) & ChrW(113) & ChrW(117) & ChrW(121) & ChrW(7873) & ChrW(110) & ChrW(32) & ChrW(116) & ChrW(114) & ChrW(234) & ChrW(110) & ChrW(32) & ChrW(109) & ChrW(225) & ChrW(121) & ChrW(32) & ChrW(116) & ChrW(237) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(110) & ChrW(224) & ChrW(121) & ChrW(33) & vbCrLf & vbCrLf & _
+          ChrW(77) & ChrW(195) & ChrW(32) & ChrW(77) & ChrW(193) & ChrW(89) & ChrW(32) & ChrW(67) & ChrW(7910) & ChrW(65) & ChrW(32) & ChrW(66) & ChrW(7840) & ChrW(78) & ChrW(58) & ChrW(32) & mId & vbCrLf & _
+          ChrW(40) & ChrW(272) & ChrW(227) & ChrW(32) & ChrW(116) & ChrW(7921) & ChrW(32) & ChrW(273) & ChrW(7897) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(115) & ChrW(97) & ChrW(111) & ChrW(32) & ChrW(99) & ChrW(104) & ChrW(233) & ChrW(112) & ChrW(32) & ChrW(118) & ChrW(224) & ChrW(111) & ChrW(32) & ChrW(98) & ChrW(7897) & ChrW(32) & ChrW(110) & ChrW(104) & ChrW(7899) & ChrW(32) & ChrW(116) & ChrW(7841) & ChrW(109) & ChrW(32) & ChrW(67) & ChrW(108) & ChrW(105) & ChrW(112) & ChrW(98) & ChrW(111) & ChrW(97) & ChrW(114) & ChrW(100) & ChrW(41) & vbCrLf & vbCrLf & _
+          ChrW(86) & ChrW(117) & ChrW(105) & ChrW(32) & ChrW(108) & ChrW(242) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(108) & ChrW(105) & ChrW(234) & ChrW(110) & ChrW(32) & ChrW(104) & ChrW(7879) & ChrW(32) & ChrW(116) & ChrW(225) & ChrW(99) & ChrW(32) & ChrW(103) & ChrW(105) & ChrW(7843) & ChrW(58) & vbCrLf & _
+          ChrW(84) & ChrW(114) & ChrW(7847) & ChrW(110) & ChrW(32) & ChrW(81) & ChrW(117) & ChrW(7889) & ChrW(99) & ChrW(32) & ChrW(272) & ChrW(434) & ChrW(7907) & ChrW(99) & ChrW(32) & ChrW(45) & ChrW(32) & ChrW(83) & ChrW(272) & ChrW(84) & ChrW(47) & ChrW(90) & ChrW(97) & ChrW(108) & ChrW(111) & ChrW(58) & ChrW(32) & ChrW(48) & ChrW(57) & ChrW(56) & ChrW(52) & ChrW(46) & ChrW(55) & ChrW(50) & ChrW(52) & ChrW(46) & ChrW(49) & ChrW(51) & ChrW(49) & vbCrLf & _
+          ChrW(273) & ChrW(7875) & ChrW(32) & ChrW(110) & ChrW(104) & ChrW(7841) & ChrW(110) & ChrW(32) & ChrW(77) & ChrW(227) & ChrW(32) & ChrW(107) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7841) & ChrW(116) & ChrW(32) & ChrW(98) & ChrW(7843) & ChrW(110) & ChrW(32) & ChrW(113) & ChrW(117) & ChrW(121) & ChrW(7873) & ChrW(110) & ChrW(46) & vbCrLf & vbCrLf & _
+          ChrW(66) & ChrW(7841) & ChrW(110) & ChrW(32) & ChrW(99) & ChrW(243) & ChrW(32) & ChrW(109) & ChrW(117) & ChrW(7889) & ChrW(110) & ChrW(32) & ChrW(110) & ChrW(104) & ChrW(7841) & ChrW(112) & ChrW(32) & ChrW(77) & ChrW(227) & ChrW(32) & ChrW(107) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7841) & ChrW(116) & ChrW(32) & ChrW(110) & ChrW(103) & ChrW(97) & ChrW(121) & ChrW(32) & ChrW(98) & ChrW(226) & ChrW(121) & ChrW(32) & ChrW(103) & ChrW(105) & ChrW(7901) & ChrW(32) & ChrW(107) & ChrW(104) & ChrW(244) & ChrW(110) & ChrW(103) & ChrW(63)
+          
+    Dim ret As Long
+    ret = MsgBoxUni(msg, vbYesNo + vbInformation, title)
+    If ret = vbYes Then
+        Dim userKey As String
+        Dim promptInput As String
+        promptInput = ChrW(86) & ChrW(117) & ChrW(105) & ChrW(32) & ChrW(108) & ChrW(242) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(100) & ChrW(225) & ChrW(110) & ChrW(32) & ChrW(40) & ChrW(80) & ChrW(97) & ChrW(115) & ChrW(116) & ChrW(101) & ChrW(41) & ChrW(32) & ChrW(77) & ChrW(227) & ChrW(32) & ChrW(107) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7841) & ChrW(116) & ChrW(32) & ChrW(40) & ChrW(76) & ChrW(105) & ChrW(99) & ChrW(101) & ChrW(110) & ChrW(115) & ChrW(101) & ChrW(32) & ChrW(75) & ChrW(101) & ChrW(121) & ChrW(41) & ChrW(32) & ChrW(118) & ChrW(224) & ChrW(111) & ChrW(32) & ChrW(273) & ChrW(226) & ChrW(121) & ChrW(58)
+        
+        userKey = InputBoxUni(promptInput, title, "")
+        userKey = UCase$(Trim$(userKey))
+        If Len(userKey) > 0 Then
+            Dim validKey As String
+            validKey = Lic_GenerateKey(mId)
+            If userKey = validKey Or userKey = LIC_MASTER_KEY Then
+                Call Lic_SaveKey(userKey)
+                Dim successMsg As String
+                successMsg = ChrW(67) & ChrW(104) & ChrW(250) & ChrW(99) & ChrW(32) & ChrW(109) & ChrW(7915) & ChrW(110) & ChrW(103) & ChrW(33) & ChrW(32) & ChrW(80) & ChrW(104) & ChrW(7847) & ChrW(109) & ChrW(32) & ChrW(109) & ChrW(7873) & ChrW(109) & ChrW(32) & ChrW(273) & ChrW(227) & ChrW(32) & ChrW(273) & ChrW(434) & ChrW(7907) & ChrW(99) & ChrW(32) & ChrW(107) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7841) & ChrW(116) & ChrW(32) & ChrW(66) & ChrW(7843) & ChrW(78) & ChrW(32) & ChrW(81) & ChrW(85) & ChrW(89) & ChrW(7870) & ChrW(78) & ChrW(32) & ChrW(86) & ChrW(296) & ChrW(7848) & ChrW(72) & ChrW(32) & ChrW(86) & ChrW(73) & ChrW(7877) & ChrW(78) & ChrW(32) & ChrW(116) & ChrW(104) & ChrW(224) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(99) & ChrW(244) & ChrW(110) & ChrW(103) & ChrW(33)
+                Call MsgBoxUni(successMsg, vbInformation, title)
+                CheckLicenseActivation = True
+                Exit Function
+            Else
+                Dim failMsg As String
+                failMsg = ChrW(77) & ChrW(227) & ChrW(32) & ChrW(107) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7841) & ChrW(116) & ChrW(32) & ChrW(107) & ChrW(104) & ChrW(244) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(273) & ChrW(250) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7863) & ChrW(99) & ChrW(32) & ChrW(107) & ChrW(104) & ChrW(244) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(107) & ChrW(104) & ChrW(7899) & ChrW(112) & ChrW(32) & ChrW(118) & ChrW(7899) & ChrW(105) & ChrW(32) & ChrW(109) & ChrW(225) & ChrW(121) & ChrW(32) & ChrW(116) & ChrW(237) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(110) & ChrW(224) & ChrW(121) & ChrW(33) & vbCrLf & vbCrLf & _
+                          ChrW(86) & ChrW(117) & ChrW(105) & ChrW(32) & ChrW(108) & ChrW(242) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(108) & ChrW(105) & ChrW(234) & ChrW(110) & ChrW(32) & ChrW(104) & ChrW(7879) & ChrW(32) & ChrW(90) & ChrW(97) & ChrW(108) & ChrW(111) & ChrW(58) & ChrW(32) & ChrW(48) & ChrW(57) & ChrW(56) & ChrW(52) & ChrW(46) & ChrW(55) & ChrW(50) & ChrW(52) & ChrW(46) & ChrW(49) & ChrW(51) & ChrW(49) & ChrW(32) & ChrW(273) & ChrW(7875) & ChrW(32) & ChrW(273) & ChrW(434) & ChrW(7907) & ChrW(99) & ChrW(32) & ChrW(104) & ChrW(7895) & ChrW(32) & ChrW(116) & ChrW(114) & ChrW(7907) & ChrW(46)
+                Call MsgBoxUni(failMsg, vbCritical, title)
+            End If
+        End If
+    End If
+    
+    CheckLicenseActivation = False
+End Function
+
 Public Sub AutoExec()
 Call CN_HenKiemTraKhiMo
 End Sub
@@ -9877,6 +10000,7 @@ End Sub
 
 ' === CHỨC NĂNG MỚI: ĐÁNH SỐ TRANG CHUẨN NĐ 30/2020/NĐ-CP ===
 Public Sub Word_DanhSoTrangND30(control As Object)
+    If Not CheckLicenseActivation() Then Exit Sub
     On Error Resume Next
     Dim doc As Document: Set doc = ActiveDocument
     If doc Is Nothing Then
@@ -9915,6 +10039,7 @@ End Sub
 
 ' === CHỨC NĂNG MỚI: ĐÁNH SỐ TỪ TRANG BẤT KỲ ===
 Public Sub Word_DanhSoTrangBatKy(control As Object)
+    If Not CheckLicenseActivation() Then Exit Sub
     On Error GoTo ThoatLoi
     Dim doc As Document: Set doc = ActiveDocument
     If doc Is Nothing Then
@@ -10041,6 +10166,7 @@ End Sub
 
 ' === CHỨC NĂNG MỚI: XÓA SỐ TRANG ===
 Public Sub Word_XoaSoTrang(control As Object)
+    If Not CheckLicenseActivation() Then Exit Sub
     On Error Resume Next
     Dim doc As Document: Set doc = ActiveDocument
     If doc Is Nothing Then Exit Sub
@@ -10058,6 +10184,7 @@ End Sub
 
 ' === CHỨC NĂNG MỚI: XOAY NGANG TRANG CHỌN ===
 Public Sub Word_XoayNgangTrang(control As Object)
+    If Not CheckLicenseActivation() Then Exit Sub
     On Error GoTo LoiXoay
     Dim doc As Document: Set doc = ActiveDocument
     If doc Is Nothing Then Exit Sub
@@ -10120,6 +10247,7 @@ End Sub
 
 ' === CHỨC NĂNG MỚI: CHUẨN HÓA BẢNG BIỂU ===
 Public Sub Word_ChuanHoaBangBieu(control As Object)
+    If Not CheckLicenseActivation() Then Exit Sub
     On Error Resume Next
     Dim doc As Document: Set doc = ActiveDocument
     If doc Is Nothing Then Exit Sub
