@@ -9590,7 +9590,15 @@ Public Function CheckLicenseActivation() As Boolean
             If userKey = validKey Or userKey = LIC_MASTER_KEY Then
                 Call Lic_SaveKey(userKey)
                 Dim successMsg As String
-                successMsg = ChrW(67) & ChrW(104) & ChrW(250) & ChrW(99) & ChrW(32) & ChrW(109) & ChrW(7915) & ChrW(110) & ChrW(103) & ChrW(33) & ChrW(32) & ChrW(80) & ChrW(104) & ChrW(7847) & ChrW(109) & ChrW(32) & ChrW(109) & ChrW(7873) & ChrW(109) & ChrW(32) & ChrW(273) & ChrW(227) & ChrW(32) & ChrW(273) & ChrW(434) & ChrW(7907) & ChrW(99) & ChrW(32) & ChrW(107) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(104) & ChrW(111) & ChrW(7841) & ChrW(116) & ChrW(32) & ChrW(66) & ChrW(7843) & ChrW(78) & ChrW(32) & ChrW(81) & ChrW(85) & ChrW(89) & ChrW(7870) & ChrW(78) & ChrW(32) & ChrW(86) & ChrW(296) & ChrW(7848) & ChrW(72) & ChrW(32) & ChrW(86) & ChrW(73) & ChrW(7877) & ChrW(78) & ChrW(32) & ChrW(116) & ChrW(104) & ChrW(224) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(99) & ChrW(244) & ChrW(110) & ChrW(103) & ChrW(33)
+                successMsg = ChrW(67) & ChrW(72) & ChrW(218) & ChrW(67) & ChrW(32) & ChrW(77) & ChrW(7914) & ChrW(78) & ChrW(71) & ChrW(32) & ChrW(81) & ChrW(85) & ChrW(221) & ChrW(32) & ChrW(75) & ChrW(72) & ChrW(193) & ChrW(67) & ChrW(72) & ChrW(32) & ChrW(272) & ChrW(195) & ChrW(32) & ChrW(75) & ChrW(205) & ChrW(67) & ChrW(72) & ChrW(32) & ChrW(72) & ChrW(79) & ChrW(7840) & ChrW(84) & ChrW(32) & ChrW(84) & ChrW(72) & ChrW(192) & ChrW(78) & ChrW(72) & ChrW(32) & ChrW(67) & ChrW(212) & ChrW(78) & ChrW(71) & ChrW(33) & vbCrLf & _
+          "" & vbCrLf & _
+          ChrW(8226) & ChrW(32) & ChrW(84) & ChrW(114) & ChrW(7841) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(116) & ChrW(104) & ChrW(225) & ChrW(105) & ChrW(58) & ChrW(32) & ChrW(272) & ChrW(195) & ChrW(32) & ChrW(77) & ChrW(7902) & ChrW(32) & ChrW(75) & ChrW(72) & ChrW(211) & ChrW(65) & ChrW(32) & ChrW(66) & ChrW(7842) & ChrW(78) & ChrW(32) & ChrW(81) & ChrW(85) & ChrW(89) & ChrW(7872) & ChrW(78) & ChrW(32) & ChrW(86) & ChrW(296) & ChrW(78) & ChrW(72) & ChrW(32) & ChrW(86) & ChrW(73) & ChrW(7876) & ChrW(78) & ChrW(32) & ChrW(116) & ChrW(114) & ChrW(234) & ChrW(110) & ChrW(32) & ChrW(109) & ChrW(225) & ChrW(121) & ChrW(32) & ChrW(116) & ChrW(237) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(110) & ChrW(224) & ChrW(121) & ChrW(46) & vbCrLf & _
+          ChrW(8226) & ChrW(32) & ChrW(84) & ChrW(111) & ChrW(224) & ChrW(110) & ChrW(32) & ChrW(98) & ChrW(7897) & ChrW(32) & ChrW(116) & ChrW(237) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(110) & ChrW(259) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(116) & ChrW(105) & ChrW(7879) & ChrW(110) & ChrW(32) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(49) & ChrW(67) & ChrW(108) & ChrW(105) & ChrW(99) & ChrW(107) & ChrW(32) & ChrW(79) & ChrW(102) & ChrW(102) & ChrW(105) & ChrW(99) & ChrW(101) & ChrW(32) & ChrW(273) & ChrW(227) & ChrW(32) & ChrW(115) & ChrW(7861) & ChrW(110) & ChrW(32) & ChrW(115) & ChrW(224) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(115) & ChrW(7917) & ChrW(32) & ChrW(100) & ChrW(7909) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(107) & ChrW(104) & ChrW(244) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(103) & ChrW(105) & ChrW(7899) & ChrW(105) & ChrW(32) & ChrW(104) & ChrW(7841) & ChrW(110) & ChrW(46) & vbCrLf & _
+          "" & vbCrLf & _
+          ChrW(88) & ChrW(105) & ChrW(110) & ChrW(32) & ChrW(99) & ChrW(104) & ChrW(226) & ChrW(110) & ChrW(32) & ChrW(116) & ChrW(104) & ChrW(224) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(99) & ChrW(7843) & ChrW(109) & ChrW(32) & ChrW(417) & ChrW(110) & ChrW(32) & ChrW(81) & ChrW(117) & ChrW(253) & ChrW(32) & ChrW(107) & ChrW(104) & ChrW(225) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(273) & ChrW(227) & ChrW(32) & ChrW(116) & ChrW(105) & ChrW(110) & ChrW(32) & ChrW(116) & ChrW(432) & ChrW(7903) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(118) & ChrW(224) & ChrW(32) & ChrW(273) & ChrW(7891) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(104) & ChrW(224) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(99) & ChrW(249) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(116) & ChrW(105) & ChrW(7879) & ChrW(110) & ChrW(32) & ChrW(237) & ChrW(99) & ChrW(104) & ChrW(33) & vbCrLf & _
+          ChrW(75) & ChrW(237) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(99) & ChrW(104) & ChrW(250) & ChrW(99) & ChrW(32) & ChrW(81) & ChrW(117) & ChrW(253) & ChrW(32) & ChrW(107) & ChrW(104) & ChrW(225) & ChrW(99) & ChrW(104) & ChrW(32) & ChrW(99) & ChrW(244) & ChrW(110) & ChrW(103) & ChrW(32) & ChrW(116) & ChrW(225) & ChrW(99) & ChrW(32) & ChrW(116) & ChrW(7889) & ChrW(116) & ChrW(32) & ChrW(118) & ChrW(224) & ChrW(32) & ChrW(103) & ChrW(7863) & ChrW(116) & ChrW(32) & ChrW(104) & ChrW(225) & ChrW(105) & ChrW(32) & ChrW(110) & ChrW(104) & ChrW(105) & ChrW(7873) & ChrW(117) & ChrW(32) & ChrW(116) & ChrW(104) & ChrW(224) & ChrW(110) & ChrW(104) & ChrW(32) & ChrW(99) & ChrW(244) & ChrW(110) & ChrW(103) & ChrW(33) & vbCrLf & _
+          "" & vbCrLf & _
+          ChrW(84) & ChrW(225) & ChrW(99) & ChrW(32) & ChrW(103) & ChrW(105) & ChrW(7843) & ChrW(58) & ChrW(32) & ChrW(84) & ChrW(114) & ChrW(7847) & ChrW(110) & ChrW(32) & ChrW(81) & ChrW(117) & ChrW(7889) & ChrW(99) & ChrW(32) & ChrW(272) & ChrW(432) & ChrW(7907) & ChrW(99) & ChrW(32) & ChrW(45) & ChrW(32) & ChrW(83) & ChrW(272) & ChrW(84) & ChrW(47) & ChrW(90) & ChrW(97) & ChrW(108) & ChrW(111) & ChrW(58) & ChrW(32) & ChrW(48) & ChrW(57) & ChrW(56) & ChrW(52) & ChrW(46) & ChrW(55) & ChrW(50) & ChrW(52) & ChrW(46) & ChrW(49) & ChrW(51) & ChrW(49)
                 Call MsgBoxUni(successMsg, vbInformation, title)
                 CheckLicenseActivation = True
                 Exit Function
@@ -9674,6 +9682,38 @@ res = Trim(res)
 If Len(ParseJsonField(res, "version")) > 0 Then Exit For
 Next i
 CN_TaiManifest = res
+End Function
+
+Private Function ParseJsonField(ByVal json As String, ByVal fieldName As String) As String
+    Dim pos As Long, startPos As Long, endPos As Long
+    pos = InStr(json, """" & fieldName & """")
+    If pos > 0 Then
+        startPos = InStr(pos + Len(fieldName) + 2, json, """")
+        If startPos > 0 Then
+            endPos = InStr(startPos + 1, json, """")
+            If endPos > startPos Then
+                ParseJsonField = Mid(json, startPos + 1, endPos - startPos - 1)
+            End If
+        End If
+    End If
+End Function
+
+Private Function EncodeUrl(ByVal s As String) As String
+    Dim i As Long, ch As String, code As Long
+    Dim res As String
+    res = ""
+    For i = 1 To Len(s)
+        ch = Mid(s, i, 1)
+        code = AscW(ch) And &HFFFF&
+        If (code >= 48 And code <= 57) Or (code >= 65 And code <= 90) Or (code >= 97 And code <= 122) Or ch = "-" Or ch = "_" Or ch = "." Then
+            res = res & ch
+        ElseIf code < 128 Then
+            res = res & "%" & Right("0" & Hex(code), 2)
+        Else
+            res = res & "_"
+        End If
+    Next i
+    EncodeUrl = res
 End Function
 Public Sub RibbonCapNhat(control As Object)
 Call CN_KiemTraCapNhat(True)
