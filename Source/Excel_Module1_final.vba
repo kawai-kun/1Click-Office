@@ -1418,6 +1418,14 @@ Private Function ToAscii(ByVal s As String) As String
     Next k
     ToAscii = res
 End Function
+
+Public Sub Auto_Open()
+    ' 1Click Excel Auto initialized
+End Sub
+
+Public Sub RibbonOnLoad(ribbon As Object)
+    ' 1Click Excel Auto initialized
+End Sub
 Public Sub RibbonCapNhat(control As Object)
     Dim s As String
     s = "Ph" & ChrW(7847) & "n m" & ChrW(7873) & "m 1Click Excel - Chu" & ChrW(7849) & "n H" & ChrW(243) & "a Trang In & B" & ChrW(7843) & "ng Bi" & ChrW(7875) & "u (v3.0 Enterprise)." & vbCrLf & _
